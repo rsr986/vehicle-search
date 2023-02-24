@@ -1,6 +1,7 @@
 package com.example.vehicle.api.search.controller;
 
 import com.example.vehicle.api.search.entity.Manufacturer;
+import com.example.vehicle.api.search.exception.ManufacturerNotFoundException;
 import com.example.vehicle.api.search.service.ManufacturerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +32,11 @@ public class ManufacturerController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<Manufacturer> getManufacturerById(@PathVariable int id) {
+    ResponseEntity<Manufacturer> getManufacturerById(@PathVariable int id) throws ManufacturerNotFoundException {
         Manufacturer manufacturer = manufacturerService.getManufacturerForId(id);
+        if(manufacturer == null) {
+            throw new ManufacturerNotFoundException("Manufacturer not with ID-" + id);
+        }
         return ResponseEntity.ok().body(manufacturer);
     }
 
