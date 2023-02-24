@@ -9,4 +9,6 @@ public interface ManufacturerService {
     Manufacturer saveManufacturer(Manufacturer manufacturer);
 
     List<Manufacturer> getAllManufacturers();
+
+    Manufacturer getManufacturerForId(int id);
 }

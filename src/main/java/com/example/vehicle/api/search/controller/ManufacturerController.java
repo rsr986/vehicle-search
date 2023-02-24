@@ -29,4 +29,11 @@ public class ManufacturerController {
         List<Manufacturer> manufacturers = manufacturerService.getAllManufacturers();
         return ResponseEntity.ok().body(manufacturers);
     }
+
+    @GetMapping("/{id}")
+    ResponseEntity<Manufacturer> getManufacturerById(@PathVariable int id) {
+        Manufacturer manufacturer = manufacturerService.getManufacturerForId(id);
+        return ResponseEntity.ok().body(manufacturer);
+    }
+
 }
