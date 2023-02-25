@@ -2,6 +2,7 @@ package com.example.vehicle.api.search.service.impl;
 
 import com.example.vehicle.api.search.dao.ManufacturerDAO;
 import com.example.vehicle.api.search.entity.Manufacturer;
+import com.example.vehicle.api.search.exception.ManufacturerNotFoundException;
 import com.example.vehicle.api.search.service.ManufacturerService;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +52,14 @@ public class ManufacturerServiceImpl implements ManufacturerService {
         }
 
         return dbManufacturer;
+    }
+
+    @Override
+    public void deleteManufacturerById(int id) throws ManufacturerNotFoundException{
+        Manufacturer manufacturer = getManufacturerForId(id);
+        if(Objects.isNull(manufacturer)) {
+            throw new ManufacturerNotFoundException("Manufacturer not with ID-" + id);
+        }
+        manufacturerDAO.deleteById(id);
     }
 }
